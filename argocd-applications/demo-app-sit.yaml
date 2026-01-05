@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: demo-app-sit
+  namespace: argocd
+  labels:
+    app: demo-app
+    env: sit
+    bank: bank-1
+    project: demo
+spec:
+  project: default
+  source:
+    repoURL: https://code.stream.co.th/digital-business/training-cicd-db/k8s-gitops.git
+    targetRevision: HEAD
+    path: helm-charts/spring-boot-chart
+    helm:
+      valueFiles:
+        - ../../apps/bank-1/demo/demo-app/values.sit.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: demo-sit
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+  revisionHistoryLimit: 10

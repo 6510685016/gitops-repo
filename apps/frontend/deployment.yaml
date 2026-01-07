@@ -1,5 +1,5 @@
 containers:
 - name: frontend
-  image: localhost:8082/docker-hosted/gitops-frontend:12
+  image: localhost:8082/docker-hosted/gitops-frontend:28
   ports:
     - containerPort: 3000

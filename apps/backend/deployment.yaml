@@ -1,5 +1,5 @@
 containers:
 - name: backend
-  image: localhost:8081/docker-hosted/gitops-backend:1
+  image: localhost:8082/docker-hosted/gitops-backend:12
   ports:
     - containerPort: 5000
